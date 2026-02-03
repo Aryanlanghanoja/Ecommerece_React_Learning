@@ -1,15 +1,18 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
-import { useSearch } from '../../context/SearchContext';
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StoreIcon from '@mui/icons-material/Store';
-import styles from './NavBar.module.css';
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { useSearch } from "../../context/SearchContext";
+import { useTheme } from "../../context/ThemeContext";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import styles from "./NavBar.module.css";
 
 function NavBar() {
   const { getCartItemCount } = useCart();
   const { searchQuery, setSearchQuery } = useSearch();
+  const { theme, toggleTheme } = useTheme();
   const [localSearch, setLocalSearch] = useState(searchQuery);
   const cartCount = getCartItemCount();
   const location = useLocation();
@@ -20,17 +23,16 @@ function NavBar() {
     setSearchQuery(value);
   };
 
-  // Only show search on home page
-  const showSearch = location.pathname === '/';
+  const showSearch = location.pathname === "/";
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
-          <StoreIcon />
+          <img className={styles.logoImage} src="/Logo.svg" alt="E-Commerce Logo" />
           <span>E-Commerce</span>
         </Link>
-        
+
         {showSearch && (
           <div className={styles.searchContainer}>
             <SearchIcon className={styles.searchIcon} />
@@ -38,11 +40,24 @@ function NavBar() {
               type="text"
               className={styles.searchInput}
               placeholder="Search products..."
-              value={localSearch}
+              value={localSearch} 
               onChange={handleSearchChange}
             />
           </div>
         )}
+
+        <button
+          type="button"
+          className={styles.themeToggle}
+          onClick={toggleTheme}
+          aria-label="Toggle light/dark theme"
+        >
+          {theme === "light" ? (
+            <DarkModeIcon className={styles.themeIcon} />
+          ) : (
+            <LightModeIcon className={styles.themeIcon} />
+          )}
+        </button>
 
         <Link to="/cart" className={styles.cartButton}>
           <ShoppingCartIcon className={styles.cartIcon} />

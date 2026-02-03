@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import PaymentIcon from '@mui/icons-material/Payment';
-import styles from './Cart.module.css';
+import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import PaymentIcon from "@mui/icons-material/Payment";
+import styles from "./Cart.module.css";
 
 function Cart() {
   const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
@@ -43,9 +43,9 @@ function Cart() {
     <div className={styles.cart}>
       <h1 className={styles.heading}>
         <ShoppingCartIcon className={styles.headingIcon} />
-        Shopping Cart ({cart.length} {cart.length === 1 ? 'item' : 'items'})
+        Shopping Cart ({cart.length} {cart.length === 1 ? "item" : "items"})
       </h1>
-      
+
       <div className={styles.cartContent}>
         <div className={styles.cartItems}>
           {cart.map((item) => (
@@ -62,15 +62,21 @@ function Cart() {
                   <div className={styles.quantityControl}>
                     <button
                       className={styles.quantityButton}
-                      onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                      onClick={() =>
+                        handleQuantityChange(item.id, item.quantity - 1)
+                      }
                       aria-label="Decrease quantity"
                     >
                       <RemoveIcon />
                     </button>
-                    <span className={styles.quantityValue}>{item.quantity}</span>
+                    <span className={styles.quantityValue}>
+                      {item.quantity}
+                    </span>
                     <button
                       className={styles.quantityButton}
-                      onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                      onClick={() =>
+                        handleQuantityChange(item.id, item.quantity + 1)
+                      }
                       aria-label="Increase quantity"
                     >
                       <AddIcon />
@@ -92,7 +98,7 @@ function Cart() {
         <div className={styles.summary}>
           <h2 className={styles.summaryTitle}>Order Summary</h2>
           <div className={styles.summaryRow}>
-            <span className={styles.summaryLabel}>Subtotal</span>
+            <span className={styles.summaryLabel}>Sub Total</span>
             <span className={styles.summaryValue}>${total.toFixed(2)}</span>
           </div>
           <div className={styles.summaryRow}>

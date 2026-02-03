@@ -1,7 +1,7 @@
 .navbar {
-  background-color: var(--navbar-bg, #fffdfd);
+  background-color: var(--color-surface);
   padding: 1rem 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-soft);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -10,21 +10,28 @@
 }
 
 .container {
-  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--accent, #646cff);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logo:hover {
+  color: var(--color-primary);
 }
 
 .searchContainer {
@@ -36,10 +43,10 @@
 .searchInput {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 3rem;
-  border: 2px solid var(--border-color, #333);
+  border: 2px solid var(--color-border-subtle);
   border-radius: 8px;
-  background-color: var(--input-bg, #fffafa);
-  color: var(--text-primary, #0a0a0a);
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-primary);
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
@@ -47,12 +54,12 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: var(--accent, #646cff);
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
 }
 
 .searchInput::placeholder {
-  color: var(--text-muted, #888);
+  color: var(--color-text-muted);
 }
 
 .searchIcon {
@@ -60,8 +67,35 @@
   left: 0.875rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-muted, #888);
+  color: var(--color-text-muted);
   pointer-events: none;
+}
+
+.themeToggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border-radius: 999px;
+  color: var(--color-primary);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.themeToggle:hover {
+  background-color: rgba(37, 99, 235, 0.12);
+  color: var(--color-primary-hover);
+  transform: scale(1.1);
+}
+
+.themeToggle:active {
+  transform: scale(0.95);
+}
+
+.themeIcon {
+  font-size: 1.4rem !important;
 }
 
 .cartButton {
@@ -69,25 +103,29 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background-color: var(--accent, #646cff);
-  color: white;
+  background-color: var(--color-primary);
+  color: #ffffff !important;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
   position: relative;
   text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .cartButton:hover {
-  background-color: var(--accent-hover, #535bf2);
-  transform: translateY(-1px);
+  background-color: var(--color-primary-hover);
+  color: #ffffff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }
 
 .cartButton:active {
-  transform: translateY(0);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
 }
 
 .cartIcon {
@@ -98,8 +136,8 @@
   position: absolute;
   top: -0.5rem;
   right: -0.5rem;
-  background-color: #ff4444;
-  color: white;
+  background-color: var(--color-danger);
+  color: #f9fafb;
   border-radius: 50%;
   width: 1.5rem;
   height: 1.5rem;
@@ -108,7 +146,12 @@
   justify-content: center;
   font-size: 0.75rem;
   font-weight: 700;
-  border: 2px solid var(--navbar-bg, #1a1a1a);
+  border: 2px solid var(--color-surface);
+}
+
+.logoImage {
+  width: 32px;
+  height: 32px;
 }
 
 @media (max-width: 768px) {
