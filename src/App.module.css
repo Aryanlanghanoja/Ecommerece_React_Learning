@@ -1,0 +1,6 @@
+.app {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+  box-sizing: border-box;
+}

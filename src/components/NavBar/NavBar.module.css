@@ -1,0 +1,133 @@
+.navbar {
+  background-color: var(--navbar-bg, #fffdfd);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent, #646cff);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.searchContainer {
+  flex: 1;
+  max-width: 600px;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 2px solid var(--border-color, #333);
+  border-radius: 8px;
+  background-color: var(--input-bg, #fffafa);
+  color: var(--text-primary, #0a0a0a);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent, #646cff);
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
+}
+
+.searchInput::placeholder {
+  color: var(--text-muted, #888);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted, #888);
+  pointer-events: none;
+}
+
+.cartButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--accent, #646cff);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  position: relative;
+  text-decoration: none;
+}
+
+.cartButton:hover {
+  background-color: var(--accent-hover, #535bf2);
+  transform: translateY(-1px);
+}
+
+.cartButton:active {
+  transform: translateY(0);
+}
+
+.cartIcon {
+  font-size: 1.25rem !important;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 2px solid var(--navbar-bg, #1a1a1a);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .container {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .searchContainer {
+    order: 3;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+}
