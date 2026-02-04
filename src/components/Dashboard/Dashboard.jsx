@@ -51,7 +51,6 @@ function Dashboard() {
     loadProducts();
   }, []);
 
-  // Save favorites to localStorage whenever they change
   useEffect(() => {
     try {
       localStorage.setItem(

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
@@ -15,6 +16,7 @@ function ProductCard({
   isFavorite = false,
   onToggleFavorite = () => {},
 }) {
+  const navigate = useNavigate();
   const { title, price, description, image, rating, category } = product;
   const rate = rating?.rate ?? 0;
   const count = rating?.count ?? 0;
@@ -49,10 +51,14 @@ function ProductCard({
   const openDetails = () => setShowDetails(true);
   const closeDetails = () => setShowDetails(false);
 
+  const handleCardClick = () => {
+    navigate(`/product/${product.id}`);
+  };
+
   return (
     <>
-      <article className={styles.card}>
-        <div className={styles.cardHeader}>
+      <article className={styles.card} onClick={handleCardClick}>
+        <div className={styles.cardHeader} onClick={(e) => e.stopPropagation()}>
           <button
             type="button"
             className={`${styles.iconButton} ${isFavorite ? styles.iconButtonActive : ""}`}
@@ -163,6 +169,44 @@ function ProductCard({
                   <span className={styles.ratingCount}>({count} reviews)</span>
                 </div>
                 <p className={styles.modalDescription}>{description}</p>
+
+                <div className={styles.modalActions}>
+                  {isInCart ? (
+                    <div className={styles.modalCartControls}>
+                      <div className={styles.quantityControl}>
+                        <button
+                          type="button"
+                          className={styles.quantityButton}
+                          onClick={handleDecrement}
+                          aria-label="Decrease quantity"
+                        >
+                          <RemoveIcon fontSize="small" />
+                        </button>
+                        <span className={styles.quantityValue}>
+                          {cartItem.quantity}
+                        </span>
+                        <button
+                          type="button"
+                          className={styles.quantityButton}
+                          onClick={handleIncrement}
+                          aria-label="Increase quantity"
+                        >
+                          <AddIcon fontSize="small" />
+                        </button>
+                      </div>
+                      <span className={styles.inCartLabel}>In Cart</span>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      className={styles.modalAddToCartBtn}
+                      onClick={handleAddToCart}
+                    >
+                      <ShoppingCartIcon className={styles.btnIcon} />
+                      <span>Add to Cart</span>
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>

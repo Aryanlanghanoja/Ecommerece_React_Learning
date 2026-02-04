@@ -2,11 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { SearchProvider } from "./context/SearchContext";
 import { ThemeProvider } from "./context/ThemeContext";
-import StrictMode from "react";
-import NavBar from "./components/NavBar/NavBar";
+import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
-import styles from "./App.module.css";
+import ProductDisplay from "./pages/ProductDisplay/ProductDisplay";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -14,13 +14,18 @@ function App() {
       <ThemeProvider>
         <CartProvider>
           <SearchProvider>
-            <NavBar />
-            <div className={styles.app}>
-              <Routes>
+            <Routes>
+              <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/cart" element={<Cart />} />
-              </Routes>
-            </div>
+                <Route
+                  path="/product/:productId"
+                  element={<ProductDisplay />}
+                />
+                <Route path="/not-found" element={<NotFound />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </SearchProvider>
         </CartProvider>
       </ThemeProvider>

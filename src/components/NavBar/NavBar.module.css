@@ -2,8 +2,10 @@
   background-color: var(--color-surface);
   padding: 1rem 0;
   box-shadow: var(--shadow-soft);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   width: 100%;
   box-sizing: border-box;
@@ -27,13 +29,9 @@
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  transition: color 0.3s ease;
   white-space: nowrap;
   flex-shrink: 0;
-}
-
-.logo:hover {
-  color: var(--color-primary);
+  transition: none;
 }
 
 .searchContainer {
