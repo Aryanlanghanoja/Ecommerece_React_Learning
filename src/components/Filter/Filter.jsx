@@ -1,5 +1,8 @@
 import { useState, useMemo } from "react";
 import { ChevronDown, X } from "lucide-react";
+import Slider from "@mui/material/Slider";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import styles from "./Filter.module.css";
 
 function Filter({ products, onFilterChange, onClose }) {
@@ -40,20 +43,6 @@ function Filter({ products, onFilterChange, onClose }) {
       : [...filters.category, category];
 
     const newFilters = { ...filters, category: newCategories };
-    setFilters(newFilters);
-    onFilterChange(newFilters);
-  };
-
-  const handlePriceChange = (e, index) => {
-    const newPrice = [...filters.priceRange];
-    newPrice[index] = Number(e.target.value);
-
-    if (newPrice[0] > newPrice[1]) {
-      if (index === 0) newPrice[1] = newPrice[0];
-      else newPrice[0] = newPrice[1];
-    }
-
-    const newFilters = { ...filters, priceRange: newPrice };
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
@@ -154,61 +143,33 @@ function Filter({ products, onFilterChange, onClose }) {
         </button>
         {expandedSections.price && (
           <div className={styles.sectionContent}>
-            <div className={styles.priceInputs}>
-              <div className={styles.priceInput}>
-                <label htmlFor="minPrice" className={styles.priceLabel}>
-                  Min
-                </label>
-                <input
-                  id="minPrice"
-                  type="number"
-                  min="0"
-                  max={filters.priceRange[1]}
-                  value={filters.priceRange[0]}
-                  onChange={(e) => handlePriceChange(e, 0)}
-                  className={styles.input}
-                />
-              </div>
-              <div className={styles.priceSeparator}>—</div>
-              <div className={styles.priceInput}>
-                <label htmlFor="maxPrice" className={styles.priceLabel}>
-                  Max
-                </label>
-                <input
-                  id="maxPrice"
-                  type="number"
-                  min={filters.priceRange[0]}
-                  max={maxPrice}
-                  value={filters.priceRange[1]}
-                  onChange={(e) => handlePriceChange(e, 1)}
-                  className={styles.input}
-                />
-              </div>
-            </div>
-            <div
-              className={styles.rangeSlider}
-              style={{
-                "--min-value": `${(filters.priceRange[0] / maxPrice) * 100}%`,
-                "--max-value": `${(filters.priceRange[1] / maxPrice) * 100}%`,
-              }}
-            >
-              <input
-                type="range"
-                min="0"
+            <Box sx={{ px: 0.5 }}>
+              <Slider
+                value={filters.priceRange}
+                onChange={(e, newValue) => {
+                  const newFilters = {
+                    ...filters,
+                    priceRange: newValue,
+                  };
+                  setFilters(newFilters);
+                  onFilterChange(newFilters);
+                }}
+                min={0}
                 max={maxPrice}
-                value={filters.priceRange[0]}
-                onChange={(e) => handlePriceChange(e, 0)}
-                className={styles.slider}
+                step={1}
+                valueLabelDisplay="auto"
+                valueLabelFormat={(value) => `$${value}`}
+                sx={{
+                  color: "var(--color-primary)",
+                  "& .MuiSlider-valueLabelLabel": {
+                    color: "white",
+                  },
+                  "& .MuiSlider-valueLabel": {
+                    backgroundColor: "var(--color-primary)",
+                  },
+                }}
               />
-              <input
-                type="range"
-                min="0"
-                max={maxPrice}
-                value={filters.priceRange[1]}
-                onChange={(e) => handlePriceChange(e, 1)}
-                className={styles.slider}
-              />
-            </div>
+            </Box>
             <div className={styles.priceDisplay}>
               ${filters.priceRange[0].toFixed(2)} - $
               {filters.priceRange[1].toFixed(2)}
