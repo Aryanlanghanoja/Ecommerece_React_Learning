@@ -1,21 +1,24 @@
-import { useState } from 'react';
-import { useCart } from '../../context/CartContext';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StarIcon from '@mui/icons-material/Star';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import styles from './ProductCard.module.css';
+import { useState } from "react";
+import { useCart } from "../../context/CartContext";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import StarIcon from "@mui/icons-material/Star";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import styles from "./ProductCard.module.css";
 
-function ProductCard({ product }) {
+function ProductCard({
+  product,
+  isFavorite = false,
+  onToggleFavorite = () => {},
+}) {
   const { title, price, description, image, rating, category } = product;
   const rate = rating?.rate ?? 0;
   const count = rating?.count ?? 0;
   const { addToCart, updateQuantity, cart } = useCart();
-  const [isFavorite, setIsFavorite] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
   const cartItem = cart.find((item) => item.id === product.id);
@@ -40,7 +43,7 @@ function ProductCard({ product }) {
   };
 
   const toggleFavorite = () => {
-    setIsFavorite((prev) => !prev);
+    onToggleFavorite();
   };
 
   const openDetails = () => setShowDetails(true);
@@ -52,9 +55,11 @@ function ProductCard({ product }) {
         <div className={styles.cardHeader}>
           <button
             type="button"
-            className={`${styles.iconButton} ${isFavorite ? styles.iconButtonActive : ''}`}
+            className={`${styles.iconButton} ${isFavorite ? styles.iconButtonActive : ""}`}
             onClick={toggleFavorite}
-            aria-label={isFavorite ? 'Remove from favourites' : 'Mark as favourite'}
+            aria-label={
+              isFavorite ? "Remove from favourites" : "Mark as favourite"
+            }
           >
             {isFavorite ? (
               <FavoriteIcon className={styles.favoriteIconFilled} />
@@ -103,7 +108,9 @@ function ProductCard({ product }) {
                 >
                   <RemoveIcon fontSize="small" />
                 </button>
-                <span className={styles.quantityValue}>{cartItem.quantity}</span>
+                <span className={styles.quantityValue}>
+                  {cartItem.quantity}
+                </span>
                 <button
                   type="button"
                   className={styles.quantityButton}
@@ -130,10 +137,7 @@ function ProductCard({ product }) {
 
       {showDetails && (
         <div className={styles.modalBackdrop} onClick={closeDetails}>
-          <div
-            className={styles.modal}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h2 className={styles.modalTitle}>{title}</h2>
               <button
@@ -148,11 +152,7 @@ function ProductCard({ product }) {
 
             <div className={styles.modalBody}>
               <div className={styles.modalImageWrapper}>
-                <img
-                  src={image}
-                  alt={title}
-                  className={styles.modalImage}
-                />
+                <img src={image} alt={title} className={styles.modalImage} />
               </div>
               <div className={styles.modalInfo}>
                 <p className={styles.modalCategory}>{category}</p>
