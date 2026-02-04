@@ -12,7 +12,15 @@ function Dashboard() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [favorites, setFavorites] = useState(new Set());
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const savedFavorites = localStorage.getItem("ecommerce_favorites");
+      return new Set(savedFavorites ? JSON.parse(savedFavorites) : []);
+    } catch (error) {
+      console.error("Error loading favorites from localStorage:", error);
+      return new Set();
+    }
+  });
   const [isFilterOpen, setIsFilterOpen] = useState(true);
   const [filters, setFilters] = useState({
     category: [],
@@ -42,6 +50,18 @@ function Dashboard() {
 
     loadProducts();
   }, []);
+
+  // Save favorites to localStorage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        "ecommerce_favorites",
+        JSON.stringify(Array.from(favorites)),
+      );
+    } catch (error) {
+      console.error("Error saving favorites to localStorage:", error);
+    }
+  }, [favorites]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);

@@ -14,9 +14,9 @@ function Filter({ products, onFilterChange, onClose }) {
   });
 
   const [expandedSections, setExpandedSections] = useState({
-    category: true,
-    price: true,
-    rating: true,
+    category: false,
+    price: false,
+    rating: false,
     favorite: false,
   });
 
