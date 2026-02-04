@@ -1,23 +1,61 @@
 .dashboardWrapper {
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: flex-start;
+  width: 100%;
 }
 
 .dashboard {
   width: 100%;
   flex: 1;
+  min-width: 0;
+}
+
+.dashboardFull {
+  flex: 1 1 100%;
 }
 
 .heading {
   font-size: 2rem;
   font-weight: 700;
-  margin: 0 0 1.5rem;
-  text-align: center;
+  margin: 0 0 2rem;
+  text-align: left;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.dashboardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filterToggleButton {
+  padding: 0.6rem 1rem;
+  background-color: var(--color-bg-secondary);
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filterToggleButton:hover {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.filterToggleButton:active {
+  transform: scale(0.98);
 }
 
 .headingIcon {
@@ -41,8 +79,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.75rem;
 }
 
 .loading {
@@ -79,42 +117,69 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .dashboardWrapper {
-    gap: 1.5rem;
+    gap: 2rem;
+  }
+
+  .filterToggleButton {
+    display: inline-flex;
   }
 }
 
 @media (max-width: 768px) {
   .dashboardWrapper {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
+    padding: 0 1rem;
   }
 
   .dashboard {
     width: 100%;
   }
 
+  .dashboardHeader {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .heading {
+    flex: 1;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .filterToggleButton {
+    order: -1;
+  }
+
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
   }
 
   .heading {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
   }
 }
 
 @media (max-width: 480px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .heading {
     font-size: 1.25rem;
+    margin-bottom: 1rem;
   }
 
   .noResults {
     padding: 2rem 1rem;
     font-size: 1rem;
+  }
+
+  .dashboardWrapper {
+    padding: 0;
   }
 }

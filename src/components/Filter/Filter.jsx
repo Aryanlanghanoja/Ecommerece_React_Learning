@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { ChevronDown, X } from "lucide-react";
 import styles from "./Filter.module.css";
 
-function Filter({ products, onFilterChange }) {
+function Filter({ products, onFilterChange, onClose }) {
   const [filters, setFilters] = useState({
     category: [],
     priceRange: [0, 1000],
@@ -92,15 +92,25 @@ function Filter({ products, onFilterChange }) {
     <aside className={styles.filterContainer}>
       <div className={styles.filterHeader}>
         <h2 className={styles.filterTitle}>Filters</h2>
-        {hasActiveFilters && (
+        <div className={styles.headerActions}>
+          {hasActiveFilters && (
+            <button
+              type="button"
+              className={styles.clearButton}
+              onClick={clearAllFilters}
+            >
+              Clear All
+            </button>
+          )}
           <button
             type="button"
-            className={styles.clearButton}
-            onClick={clearAllFilters}
+            className={styles.closeButton}
+            onClick={onClose}
+            aria-label="Close filters"
           >
-            Clear All
+            <X size={20} />
           </button>
-        )}
+        </div>
       </div>
 
       <div className={styles.filterSection}>

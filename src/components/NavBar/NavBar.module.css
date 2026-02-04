@@ -1,22 +1,22 @@
 .navbar {
   background-color: var(--color-surface);
-  padding: 1rem 2rem;
+  padding: 1rem 0;
   box-shadow: var(--shadow-soft);
   position: sticky;
   top: 0;
   z-index: 1000;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
 }
 
 .container {
-  width: 100vw;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 1.5rem;
   padding: 0 2rem;
   box-sizing: border-box;
+  justify-content: space-between;
 }
 
 .logo {
@@ -28,6 +28,8 @@
   gap: 0.5rem;
   text-decoration: none;
   transition: color 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .logo:hover {
@@ -35,8 +37,7 @@
 }
 
 .searchContainer {
-  flex: 1;
-  max-width: 600px;
+  flex: 0 1 500px;
   position: relative;
 }
 
@@ -83,6 +84,8 @@
   border-radius: 999px;
   color: var(--color-primary);
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .themeToggle:hover {
@@ -114,6 +117,8 @@
   position: relative;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .cartButton:hover {
@@ -155,6 +160,12 @@
   height: 32px;
 }
 
+@media (max-width: 1024px) {
+  .searchContainer {
+    flex: 0 1 400px;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem;
@@ -163,15 +174,26 @@
   .container {
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: flex-start;
   }
 
   .searchContainer {
     order: 3;
     flex-basis: 100%;
-    max-width: 100%;
+    flex: 1;
   }
 
   .logo {
     font-size: 1.25rem;
+  }
+
+  .themeToggle {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .cartButton {
+    order: 4;
+    flex-basis: 100%;
   }
 }

@@ -13,6 +13,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState(new Set());
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
   const [filters, setFilters] = useState({
     category: [],
     priceRange: [0, 1000],
@@ -110,26 +111,46 @@ function Dashboard() {
 
   return (
     <div className={styles.dashboardWrapper}>
-      <Filter products={products} onFilterChange={handleFilterChange} />
+      {isFilterOpen && (
+        <Filter
+          products={products}
+          onFilterChange={handleFilterChange}
+          onClose={() => setIsFilterOpen(false)}
+        />
+      )}
 
-      <div className={styles.dashboard}>
-        <h1 className={styles.heading}>
-          {searchQuery && (
-            <span className={styles.searchResults}>
-              ({filteredProducts.length} found)
-            </span>
+      <div
+        className={`${styles.dashboard} ${!isFilterOpen ? styles.dashboardFull : ""}`}
+      >
+        <div className={styles.dashboardHeader}>
+          {!isFilterOpen && (
+            <button
+              type="button"
+              className={styles.filterToggleButton}
+              onClick={() => setIsFilterOpen(true)}
+              aria-label="Open filters"
+            >
+              ☰ Filters
+            </button>
           )}
-          {!searchQuery &&
-          filters.category.length === 0 &&
-          filters.minRating === 0 &&
-          filters.isFavorite === false &&
-          filters.priceRange[0] === 0 &&
-          filters.priceRange[1] >= 1000 ? null : (
-            <span className={styles.searchResults}>
-              ({filteredProducts.length} results)
-            </span>
-          )}
-        </h1>
+          <h1 className={styles.heading}>
+            {searchQuery && (
+              <span className={styles.searchResults}>
+                ({filteredProducts.length} found)
+              </span>
+            )}
+            {!searchQuery &&
+            filters.category.length === 0 &&
+            filters.minRating === 0 &&
+            filters.isFavorite === false &&
+            filters.priceRange[0] === 0 &&
+            filters.priceRange[1] >= 1000 ? null : (
+              <span className={styles.searchResults}>
+                ({filteredProducts.length} results)
+              </span>
+            )}
+          </h1>
+        </div>
 
         {filteredProducts.length === 0 ? (
           <div className={styles.noResults}>
