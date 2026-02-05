@@ -69,6 +69,122 @@
   gap: 2rem;
 }
 
+.viewControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--color-surface);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.viewToggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.viewButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 2px solid var(--color-border-subtle);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.viewButton:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.viewButton.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #f9fafb;
+}
+
+.sortControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sortSelect {
+  font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tableContainer {
+  background: var(--color-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
+}
+
+.cartTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cartTable th,
+.cartTable td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.cartTable th {
+  background: var(--color-surface-muted);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.cartTable td {
+  vertical-align: middle;
+}
+
+.itemNameCell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tableItemImage {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: var(--color-surface-muted);
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+
+.tableQuantityControl {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: 0.25rem;
+  width: fit-content;
+}
+
 .cartItems {
   display: flex;
   flex-direction: column;

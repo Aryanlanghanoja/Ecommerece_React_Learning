@@ -113,7 +113,6 @@
   color: var(--color-danger);
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .dashboardWrapper {
     gap: 2rem;
