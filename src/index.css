@@ -88,5 +88,5 @@ button:hover {
   border-color: var(--color-primary);
 }
 
-button:focus,
-button:focus-visible {}
+/* button:focus,
+button:focus-visible {} */

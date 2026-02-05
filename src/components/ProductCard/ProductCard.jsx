@@ -26,11 +26,13 @@ function ProductCard({
   const cartItem = cart.find((item) => item.id === product.id);
   const isInCart = !!cartItem;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
     addToCart(product);
   };
 
-  const handleIncrement = () => {
+  const handleIncrement = (e) => {
+    e.stopPropagation();
     if (!cartItem) {
       addToCart(product);
     } else {
@@ -38,7 +40,8 @@ function ProductCard({
     }
   };
 
-  const handleDecrement = () => {
+  const handleDecrement = (e) => {
+    e.stopPropagation();
     if (cartItem) {
       updateQuantity(product.id, cartItem.quantity - 1);
     }
@@ -109,7 +112,7 @@ function ProductCard({
                 <button
                   type="button"
                   className={styles.quantityButton}
-                  onClick={handleDecrement}
+                  onClick={(e) => handleDecrement(e)}
                   aria-label="Decrease quantity"
                 >
                   <RemoveIcon fontSize="small" />
@@ -120,7 +123,7 @@ function ProductCard({
                 <button
                   type="button"
                   className={styles.quantityButton}
-                  onClick={handleIncrement}
+                  onClick={(e) => handleIncrement(e)}
                   aria-label="Increase quantity"
                 >
                   <AddIcon fontSize="small" />
@@ -200,7 +203,7 @@ function ProductCard({
                     <button
                       type="button"
                       className={styles.modalAddToCartBtn}
-                      onClick={handleAddToCart}
+                      onClick={(e) => handleAddToCart(e)}
                     >
                       <ShoppingCartIcon className={styles.btnIcon} />
                       <span>Add to Cart</span>

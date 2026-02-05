@@ -4,8 +4,8 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
 import { useSearch } from "../../context/SearchContext";
+import { useFilter } from "../../context/FilterContext";
 import ProductCard from "../ProductCard/ProductCard";
-import Filter from "../Filter/Filter";
 import styles from "./Dashboard.module.css";
 
 function Dashboard() {
@@ -21,13 +21,7 @@ function Dashboard() {
       return new Set();
     }
   });
-  const [isFilterOpen, setIsFilterOpen] = useState(true);
-  const [filters, setFilters] = useState({
-    category: [],
-    priceRange: [0, 1000],
-    minRating: 0,
-    isFavorite: false,
-  });
+  const { isFilterOpen, filters } = useFilter();
   const { searchQuery } = useSearch();
 
   useEffect(() => {
@@ -61,10 +55,6 @@ function Dashboard() {
       console.error("Error saving favorites to localStorage:", error);
     }
   }, [favorites]);
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
-  };
 
   const toggleFavorite = (productId) => {
     setFavorites((prev) => {
@@ -130,28 +120,8 @@ function Dashboard() {
 
   return (
     <div className={styles.dashboardWrapper}>
-      {isFilterOpen && (
-        <Filter
-          products={products}
-          onFilterChange={handleFilterChange}
-          onClose={() => setIsFilterOpen(false)}
-        />
-      )}
-
-      <div
-        className={`${styles.dashboard} ${!isFilterOpen ? styles.dashboardFull : ""}`}
-      >
+      <div className={`${styles.dashboard} ${styles.dashboardFull}`}>
         <div className={styles.dashboardHeader}>
-          {!isFilterOpen && (
-            <button
-              type="button"
-              className={styles.filterToggleButton}
-              onClick={() => setIsFilterOpen(true)}
-              aria-label="Open filters"
-            >
-              ☰ Filters
-            </button>
-          )}
           <h1 className={styles.heading}>
             {searchQuery && (
               <span className={styles.searchResults}>

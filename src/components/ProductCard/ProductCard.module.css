@@ -41,8 +41,6 @@
   outline: none;
 }
 
-.iconButton:focus-visible {}
-
 .iconButton:active {
   transform: scale(0.95);
 }
