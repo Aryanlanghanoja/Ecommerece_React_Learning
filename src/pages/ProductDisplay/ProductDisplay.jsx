@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import StarIcon from "@mui/icons-material/Star";
 import AddIcon from "@mui/icons-material/Add";
@@ -48,7 +48,7 @@ function ProductDisplay() {
   }
 
   if (error || !product) {
-    return navigate("/not-found");
+    return <Navigate to="/not-found" replace />;
   }
 
   const { title, price, description, image, rating, category } = product;

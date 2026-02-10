@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useSearch } from "../../context/SearchContext";
@@ -8,6 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { ChevronDown } from "lucide-react";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
@@ -32,7 +33,7 @@ function NavBar() {
   const hideCartButton = location.pathname === "/cart";
   const showSearch = isHome || location.pathname === "/cart";
 
-  useMemo(() => {
+  useEffect(() => {
     const loadProducts = async () => {
       try {
         const res = await fetch("https://fakestoreapi.com/products");
@@ -60,6 +61,11 @@ function NavBar() {
     if (allProducts.length === 0) return 1000;
     return Math.ceil(Math.max(...allProducts.map((p) => p.price)));
   }, [allProducts]);
+
+  const isCategoryActive = filters.category.length > 0;
+  const isPriceActive = filters.priceRange[0] !== 0 || filters.priceRange[1] !== maxPrice;
+  const isRatingActive = filters.minRating > 0;
+  const isFavoriteActive = filters.isFavorite;
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -139,6 +145,7 @@ function NavBar() {
                 className={styles.filterDropdownButton}
                 onClick={() => toggleSection("category")}
               >
+                {isCategoryActive && <FilterAltIcon className={styles.filterIcon} />}
                 <span>Category</span>
                 <ChevronDown
                   className={`${styles.chevron} ${
@@ -177,6 +184,7 @@ function NavBar() {
                 className={styles.filterDropdownButton}
                 onClick={() => toggleSection("price")}
               >
+                {isPriceActive && <FilterAltIcon className={styles.filterIcon} />}
                 <span>Price</span>
                 <ChevronDown
                   className={`${styles.chevron} ${
@@ -196,7 +204,7 @@ function NavBar() {
                           min={0}
                           max={maxPrice}
                           step={1}
-                          valueLabelDisplay="auto"
+                          valueLabelDisplay="on"
                           valueLabelFormat={(value) => `$${value}`}
                           sx={{
                             color: "var(--color-primary)",
@@ -205,6 +213,8 @@ function NavBar() {
                             },
                             "& .MuiSlider-valueLabel": {
                               backgroundColor: "var(--color-primary)",
+                              top: "24px",
+                              transform: "translateX(-50%)",
                             },
                           }}
                         />
@@ -227,6 +237,7 @@ function NavBar() {
                 className={styles.filterDropdownButton}
                 onClick={() => toggleSection("rating")}
               >
+                {isRatingActive && <FilterAltIcon className={styles.filterIcon} />}
                 <span>Rating</span>
                 <ChevronDown
                   className={`${styles.chevron} ${
@@ -262,6 +273,7 @@ function NavBar() {
                 className={styles.filterDropdownButton}
                 onClick={() => toggleSection("favorite")}
               >
+                {isFavoriteActive && <FilterAltIcon className={styles.filterIcon} />}
                 <span>Favorites</span>
                 <ChevronDown
                   className={`${styles.chevron} ${

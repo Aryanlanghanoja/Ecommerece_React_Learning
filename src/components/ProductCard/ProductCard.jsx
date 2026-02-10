@@ -173,7 +173,7 @@ function ProductCard({
                 </div>
                 <p className={styles.modalDescription}>{description}</p>
 
-                <div className={styles.modalActions}>
+                {/* <div className={styles.modalActions}>
                   {isInCart ? (
                     <div className={styles.modalCartControls}>
                       <div className={styles.quantityControl}>
@@ -209,7 +209,7 @@ function ProductCard({
                       <span>Add to Cart</span>
                     </button>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

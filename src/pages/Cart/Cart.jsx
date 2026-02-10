@@ -10,6 +10,7 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import SortIcon from "@mui/icons-material/Sort";
+import { Tooltip } from "@mui/material";
 import { useState } from "react";
 import styles from "./Cart.module.css";
 
@@ -254,10 +255,12 @@ function Cart() {
             <span className={styles.totalLabel}>Total</span>
             <span className={styles.totalValue}>${total.toFixed(2)}</span>
           </div>
-          <button className={styles.checkoutButton}>
-            <PaymentIcon />
-            Proceed to Checkout
-          </button>
+          <Tooltip title="Coming Soon">
+            <button className={styles.checkoutButton}>
+              <PaymentIcon />
+              Proceed to Checkout
+            </button>
+          </Tooltip>
         </div>
       </div>
     </div>
